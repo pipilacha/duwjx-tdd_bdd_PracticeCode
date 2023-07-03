@@ -22,7 +22,7 @@ class TestStack(TestCase):
         """Test popping an item of off the stack"""
         self.stack.push(10)
         self.assertEqual(10, self.stack.pop())
-        self.assertEqual(True, self.stack.is_empty())
+        self.assertTrue(self.stack.is_empty())
 
     def test_peek(self):
         """Test peeking at the top the stack"""
@@ -32,6 +32,7 @@ class TestStack(TestCase):
 
     def test_is_empty(self):
         """Test if the stack is empty"""
+        self.assertFalse(self.stack.is_empty())
         self.stack.push(10)
         self.stack.pop()
-        self.assertEqual(True, self.stack.is_empty())
+        self.assertTrue(self.stack.is_empty())
