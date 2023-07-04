@@ -2,6 +2,7 @@
 Account class
 """
 import logging
+
 from sqlalchemy.sql import func
 from models import db
 
@@ -14,13 +15,13 @@ class DataValidationError(Exception):
 
 class Account(db.Model):
     """ Class that represents an Account """
-    
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64))
     email = db.Column(db.String(64))
     phone_number = db.Column(db.String(32), nullable=True)
     disabled = db.Column(db.Boolean(), nullable=False, default=False)
-    date_joined = db.Column(db.Date, nullable=False, server_default=func.now())
+    date_joined = db.Column(db.DateTime, nullable=False, server_default=func.now())
 
     def __repr__(self):
         return '<Account %r>' % self.name
@@ -38,11 +39,13 @@ class Account(db.Model):
         """Creates an Account in the database"""
         logger.info("Creating %s", self.name)
         db.session.add(self)
-        db.session.commit()
+        db.session.flush()
+        logger.info(f"Inserted with id: {self.id}")
+        return self
 
     def update(self):
         """Updates an Account in the database"""
-        logger.info("Saving %s", self.name)
+        logger.info(f"Saving {self.name} (id {self.id})")
         if not self.id:
             raise DataValidationError("Update called with empty ID field")
         db.session.commit()
