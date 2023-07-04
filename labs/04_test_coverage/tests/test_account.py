@@ -22,7 +22,7 @@ class TestAccountModel(TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        """Disconnext from database"""
+        """Disconnect from database"""
         db.session.close()
 
     def setUp(self):
@@ -52,4 +52,57 @@ class TestAccountModel(TestCase):
         account = Account(**data)
         account.create()
         self.assertEqual(len(Account.all()), 1)
+
+    def test_update_an_account(self):
+        """Test updating an account"""
+        NEW_NAME = "Juana la cubana"
+        data = ACCOUNT_DATA[self.rand]
+        account = Account(**data)
+        account = account.create()
+        account.name = NEW_NAME
+        account.update()
+        self.assertEqual(account.find(account.id).name, NEW_NAME)
+
+    def test_update_an_account_with_empty_id(self):
+        """Test updating an account with empty id"""
+        account = Account(**ACCOUNT_DATA[self.rand])
+        # assertRaises(the raised exception, the function, the params the function needs)
+        self.assertRaises(DataValidationError, account.update)
+
+    def test_delete_an_account(self):
+        """Test deleting an account"""
+        account1 = Account(**ACCOUNT_DATA[0])
+        account1.create()
+        account2 = Account(**ACCOUNT_DATA[1])
+        account2.create()
+        self.assertEqual(2, len(Account.all()))
+        account1.delete()
+        self.assertEqual(1, len(Account.all()))
+        account2.delete()
+        self.assertEqual(0, len(Account.all()))
+
+    def test_repr_as_string(self):
+        "Test representing an account as a string"
+        account = Account(name="Foo")
+        self.assertEqual(str(account), "<Account 'Foo'>")
+
+    def test_to_dict(self):
+        """Test to dict"""
+        data = ACCOUNT_DATA[self.rand]
+        account = Account(**data)
+        result = account.to_dict()
+        self.assertIsInstance(result, dict)
+        self.assertEqual(result["name"], account.name)
+        self.assertEqual(result["email"], account.email)
+        self.assertEqual(result["phone_number"], account.phone_number)
+        self.assertEqual(result["disabled"], account.disabled)
+    def test_from_dict(self):
+        """Test to dict"""
+        data = ACCOUNT_DATA[self.rand]
+        account = Account()
+        account.from_dict(data)
+        self.assertEqual(data["name"], account.name)
+        self.assertEqual(data["email"], account.email)
+        self.assertEqual(data["phone_number"], account.phone_number)
+        self.assertEqual(data["disabled"], account.disabled)
 
