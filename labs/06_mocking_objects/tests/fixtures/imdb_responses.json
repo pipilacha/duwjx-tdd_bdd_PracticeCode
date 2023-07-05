@@ -11,7 +11,7 @@
         "results": null,
         "errorMessage": "Invalid API Key"
     },
-    "MOVIE_INVALID": {
+    "REVIEW_INVALID": {
         "imDbId": null,
         "title": null,
         "fullTitle": null,

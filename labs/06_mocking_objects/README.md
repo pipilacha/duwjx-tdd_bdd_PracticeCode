@@ -135,7 +135,7 @@ def test_search_with_no_results(self):
 In `test_imdb.py`, add the following line of code before the `test_search_with_no_results(self)` method and add a parameter for the new mock called `imdb_mock`. This is patch the call to `requests.get()` and allow us to control what comes back using the `imdb_mock` variable.
 
 ```python
-@patch('models.imdb.requests.get')
+@patch('modelsd.imdb.requests.get')
 def test_search_with_no_results(self, imdb_mock):
 ```
 
@@ -179,7 +179,7 @@ OK
 ### Solution to Step 2
 
 ```python
-@patch('models.imdb.requests.get')
+@patch('modelsd.imdb.requests.get')
 def test_search_with_no_results(self, imdb_mock):
     """Test searching with no results"""
     imdb_mock.return_value = Mock(status_code=404)
@@ -208,7 +208,7 @@ def test_search_by_title_failed(self):
 In `test_imdb.py`, add the following line of code before the `test_search_by_title_failed(self)` method and add a parameter for the new mock called `imdb_mock`. This is the patch the call to `requests.get()` and allow us to control what comes back using the `imdb_mock` variable.
 
 ```python
-@patch('models.imdb.requests.get')
+@patch('modelsd.imdb.requests.get')
 def test_search_by_title_failed(self, imdb_mock):
 ```
 
@@ -261,7 +261,7 @@ OK
 ### Solution to Step 3
 
 ```python
-@patch('models.imdb.requests.get')
+@patch('modelsd.imdb.requests.get')
 def test_search_by_title_failed(self, imdb_mock):
     """Test searching by title failed"""
     imdb_mock.return_value = Mock(
@@ -299,7 +299,7 @@ def test_movie_ratings(self):
 In `test_imdb.py`, add the following line of code before the `test_movie_ratings(self)` method and add a parameter for the new mock called `imdb_mock`. This is patch the call to `requests.get()` and allow us to control what comes back using the `imdb_mock` variable.
 
 ```python
-@patch('models.imdb.requests.get')
+@patch('modelsd.imdb.requests.get')
 def test_movie_ratings(self, imdb_mock):
 ```
 
@@ -353,7 +353,7 @@ OK
 ### Solution to Step 4
 
 ```python
-@patch('models.imdb.requests.get')
+@patch('modelsd.imdb.requests.get')
 def test_movie_ratings(self, imdb_mock):
     """Test movie Ratings"""
     imdb_mock.return_value = Mock(
